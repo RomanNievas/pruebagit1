@@ -1,21 +1,10 @@
 import { test, expect } from '@playwright/test';
+import { irAlLogin, validarLoginUI, login } from '../helpers/login';
 
-test('test', async ({ page }) => {
-  await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
-  await expect(page.getByText('Username', { exact: true })).toBeVisible();
-  await expect(page.getByText('Password', { exact: true })).toBeVisible();
-  await expect(page.locator('form')).toContainText('Username');
-  await expect(page.locator('form')).toContainText('Password');
-  await expect(page.getByRole('textbox', { name: 'Username' })).toBeVisible();
-  await expect(page.getByRole('textbox', { name: 'Password' })).toBeVisible();
-  await expect(page.getByRole('img', { name: 'company-branding' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
-  await page.getByRole('textbox', { name: 'Username' }).click();
-  await page.getByRole('textbox', { name: 'Username' }).fill('roman');
-  await page.getByRole('textbox', { name: 'Username' }).press('Tab');
-  await page.getByRole('textbox', { name: 'Password' }).fill('roman123');
-  await page.getByRole('button', { name: 'Login' }).click();
+test('prueba', async ({ page }) => {
+  await irAlLogin(page);
+  await validarLoginUI(page);
+  await login(page, 'roman', 'roman123');
+
   await expect(page.getByText('Invalid credentials')).toBeVisible();
-  await expect(page.getByRole('alert')).toContainText('Invalid credentials');
-  await expect(page.getByRole('alert').locator('div').filter({ hasText: /^Invalid credentials$/ })).toBeVisible();
 });
