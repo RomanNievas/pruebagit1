@@ -41,10 +41,11 @@ export async function validarLoginExitoso(page) {
 
 // Logout
 export async function logout(page) {
-  await page.getByRole('link', { name: 'Admin' }).click();
-  await page.getByRole('listitem').filter({ hasText: 'manda user' }).locator('i').click();
+  await page.locator('.oxd-userdropdown-icon').click();
   await page.getByRole('menuitem', { name: 'Logout' }).click();
 }
+
+
 
 // Ir a recuperar contraseña
 export async function irARecuperarPassword(page) {
